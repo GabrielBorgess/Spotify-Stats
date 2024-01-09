@@ -2,23 +2,8 @@ import './index.css'
 
 function App() {
   const getSpotifyUser = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/login', {
-        mode: 'no-cors'
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao autenticar com o Spotify');
-      }
-      
-      const data = await response.json()
-      console.log(data)
-      
-    } catch (error) {
-      console.log(error)
-      throw(error)
-    }
-  }
+      window.open('http://localhost:8080/login', 'Spotify Authorization', 'width=600,height=600');
+  };
 
   return (
     <div className='bg-gradient-to-b from-blue-900 via-blue-950 to-gray-900 min-h-screen flex justify-center text-center flex-col'>
