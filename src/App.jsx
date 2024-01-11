@@ -6,6 +6,7 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   const [topArtists, setTopArtists] = useState([])
+  const [userProfile, setUserProfile] = useState(null)
 
   const fetchData = async () => {
     console.log(code)
@@ -15,8 +16,11 @@ function App() {
       try {
         const accessToken = await getAccessToken(clientId, code);
         const userProfile = await getUserProfile(accessToken);
-        console.log(userProfile.items)
-        setTopArtists(userProfile.items)
+        const userTops = await getUserTops(accessToken)
+        console.log(userTops.items)
+        console.log(userProfile)
+        setTopArtists(userTops.items)
+        setUserProfile(userProfile)
       } catch (error) {
         console.log(error)
       }
@@ -79,8 +83,16 @@ function App() {
     return access_token;
   };
 
+  const getUserTops = async (token) => {
+    const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=15", {
+        method: "GET", headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await result.json();
+  };
+
   const getUserProfile = async (token) => {
-    const result = await fetch("https://api.spotify.com/v1/me/top/artists", {
+    const result = await fetch("https://api.spotify.com/v1/me", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -88,11 +100,21 @@ function App() {
   };
 
   return (
-    <div className='bg-gradient-to-b from-blue-900 via-blue-950 to-gray-900 min-h-screen flex justify-center text-center flex-col'>
+    <div className='bg-gradient-to-b from-green-950 via-gray-900 to-gray-950 min-h-screen flex justify-center text-center flex-col'>
      <div className=''>
-        <h1 className='font-sans font-bold text-7xl text-white pt-10'>Spotify Stats</h1>
+        <h1 className='font-bold text-7xl text-white pt-10 pb-5'>Spotify Stats</h1>
         {topArtists.length === 0 && (
+          <>
+          <p className='text-white'>Simply authenticate with Spotify, and your top artists will be displayed instantly.</p>
           <button onClick={fetchData} className='m-8 p-4 text-white border-2 w-2/5 rounded-lg'>Get my Spotify Stats</button>
+          </>
+        )}
+        {topArtists.length !== 0 && (
+          <div className='flex flex-col items-center'>
+            <img className='rounded-full m-4' src={userProfile.images[0].url} alt="" />
+            <h3 className='font-bold text-2xl text-zinc-200'>{'Most listened to artists:'}</h3>
+            <p className='text-white'>(approximately last 6 months)</p>
+          </div>
         )}
         <div className='w-full flex flex-wrap justify-center p-8'>
             {topArtists.map((artist, index) => (
