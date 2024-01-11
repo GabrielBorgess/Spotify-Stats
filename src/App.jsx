@@ -106,7 +106,7 @@ function App() {
         {topArtists.length === 0 && (
           <>
           <p className='text-white'>Simply authenticate with Spotify, and your top artists will be displayed instantly.</p>
-          <button onClick={fetchData} className='m-8 p-4 text-white border-2 w-2/5 rounded-lg'>Get my Spotify Stats</button>
+          <button onClick={fetchData} className='m-8 p-4 font-semibold text-zinc-900 border-2 w-1/5 rounded-lg bg-slate-100'>Get my Spotify Stats</button>
           </>
         )}
         {topArtists.length !== 0 && (
