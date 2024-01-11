@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import './index.css'
 
 function App() {
   const clientId = "b127e89b86d2450c99868c6ab0de314c";
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
+  const [topArtists, setTopArtists] = useState([])
 
   const fetchData = async () => {
     if(!code){
@@ -12,7 +14,8 @@ function App() {
       try {
         const accessToken = await getAccessToken(clientId, code);
         const userProfile = await getUserProfile(accessToken);
-        console.log(userProfile)
+        console.log(userProfile.items)
+        setTopArtists(userProfile.items)
       } catch (error) {
         console.log(error)
       }
@@ -88,6 +91,14 @@ function App() {
      <div className=''>
         <h1 className='font-sans font-bold text-7xl text-white'>Spotify Stats</h1>
         <button onClick={fetchData} className='m-8 p-4 text-white border-2 w-1/5 rounded-lg'>Get my Spotify Stats</button>
+        <div className='w-full flex flex-wrap justify-center p-8'>
+            {topArtists.map((artist, index) => (
+              <div className='text-white font-bold text-3xl m-4 flex flex-col items-center w-52' key={index}>
+                <img className='w-40 m-4' src={artist.images[0].url} alt="" />
+                <h3>{artist.name}</h3>
+              </div>
+            ))}
+        </div>
      </div>
     </div>
   )
