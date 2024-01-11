@@ -1,6 +1,6 @@
 # Spotify Stats 
 
-Essa aplicação web permite que você tenha acesso as suas princicais stats do spotify.
+Essa aplicação (react + vite) web permite que você tenha acesso as suas princicais stats do spotify.
 
 Ainda estou trabalhando na aplicação durante o meu tempo livre e ao longo do tempo mais funções estarão disponíveis!
 
