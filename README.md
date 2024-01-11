@@ -1,8 +1,12 @@
-# React + Vite
+# Spotify Stats 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Essa aplicação web permite que você tenha acesso as suas princicais stats do spotify.
 
-Currently, two official plugins are available:
+Ainda estou trabalhando na aplicação durante o meu tempo livre e ao longo do tempo mais funções estarão disponíveis!
+✅ Autentificação com API do Spotify
+✅ Principais artistas ouvidos (aproximadamente ultimos 6 meses)
+🔜 Principais musicas ouvidas 
+🔜 Criação automatica de playlist com base nos artistas mais escutados
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Para testar a aplicação com a sua propria conta do spotify basta acessar o link abaixo:
+https://spotifystatsbyborges.netlify.app
