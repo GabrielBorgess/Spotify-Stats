@@ -8,8 +8,9 @@ function App() {
   const [topArtists, setTopArtists] = useState([])
 
   const fetchData = async () => {
+    console.log(code)
     if(!code){
-      redirectToAuthCodeFlow(clientId)
+      await redirectToAuthCodeFlow(clientId)
     } else {
       try {
         const accessToken = await getAccessToken(clientId, code);
@@ -89,13 +90,16 @@ function App() {
   return (
     <div className='bg-gradient-to-b from-blue-900 via-blue-950 to-gray-900 min-h-screen flex justify-center text-center flex-col'>
      <div className=''>
-        <h1 className='font-sans font-bold text-7xl text-white'>Spotify Stats</h1>
-        <button onClick={fetchData} className='m-8 p-4 text-white border-2 w-1/5 rounded-lg'>Get my Spotify Stats</button>
+        <h1 className='font-sans font-bold text-7xl text-white pt-10'>Spotify Stats</h1>
+        {topArtists.length === 0 && (
+          <button onClick={fetchData} className='m-8 p-4 text-white border-2 w-2/5 rounded-lg'>Get my Spotify Stats</button>
+        )}
         <div className='w-full flex flex-wrap justify-center p-8'>
             {topArtists.map((artist, index) => (
-              <div className='text-white font-bold text-3xl m-4 flex flex-col items-center w-52' key={index}>
-                <img className='w-40 m-4' src={artist.images[0].url} alt="" />
-                <h3>{artist.name}</h3>
+              <div className='text-white m-4 flex flex-col items-center w-52' key={index}>
+                <img className='w-48 m-4 rounded-xl' src={artist.images[0].url} alt="" />
+                <p>{index + 1 + 'º'}</p>
+                <h3 className='font-bold text-2xl'>{artist.name}</h3>
               </div>
             ))}
         </div>
