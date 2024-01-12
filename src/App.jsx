@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import './index.css'
 
-const callbackUrl = 'https://spotifystatsbyborges.netlify.app/callback'
+//Components
+import TextElements from './components/textElements/TextElements';
+import UserInfo from './components/UserInfo/UserInfo';
+import Artists from './components/Artists/Artists';
+
+const callbackUrl = 'http://localhost:5173/callback'
 
 function App() {
   const clientId = "b127e89b86d2450c99868c6ab0de314c";
@@ -11,7 +16,6 @@ function App() {
   const [userProfile, setUserProfile] = useState(null)
 
   const fetchData = async () => {
-    console.log(code)
     if(!code){
       await redirectToAuthCodeFlow(clientId)
     } else {
@@ -19,12 +23,10 @@ function App() {
         const accessToken = await getAccessToken(clientId, code);
         const userProfile = await getUserProfile(accessToken);
         const userTops = await getUserTops(accessToken)
-        console.log(userTops.items)
-        console.log(userProfile)
         setTopArtists(userTops.items)
         setUserProfile(userProfile)
       } catch (error) {
-        console.log(error)
+        console.error('Erro no fetchData', error)
       }
     }
   }
@@ -104,29 +106,9 @@ function App() {
   return (
     <div className='bg-gradient-to-b from-green-950 via-gray-900 to-gray-950 min-h-screen flex justify-center text-center flex-col'>
      <div className='z-10'>
-        <h1 className='font-bold text-7xl text-white pt-10 pb-5'>Spotify Stats</h1>
-        {topArtists.length === 0 && (
-          <>
-          <p className='text-white ml-5 mr-5'>Simply authenticate with Spotify, and your top artists will be displayed instantly.</p>
-          <button onClick={fetchData} className='m-8 p-4 font-semibold text-zinc-900 border-2 max-w-4xl rounded-lg bg-slate-100'>Get my Spotify Stats</button>
-          </>
-        )}
-        {topArtists.length !== 0 && (
-          <div className='flex flex-col items-center'>
-            <img className='rounded-full m-4' src={userProfile.images[0].url} alt="" />
-            <h3 className='font-bold text-2xl text-zinc-200'>{'Most listened to artists:'}</h3>
-            <p className='text-white'>(approximately last 6 months)</p>
-          </div>
-        )}
-        <div className='w-full flex flex-wrap justify-center p-8'>
-            {topArtists.map((artist, index) => (
-              <div className='text-white m-4 flex flex-col items-center w-52' key={index}>
-                <img className='w-48 m-4 rounded-xl' src={artist.images[0].url} alt="" />
-                <p>{index + 1 + 'º'}</p>
-                <h3 className='font-bold text-2xl'>{artist.name}</h3>
-              </div>
-            ))}
-        </div>
+        <TextElements topArtists={topArtists} fetchData={fetchData}/>
+        <UserInfo topArtists={topArtists} userProfile={userProfile}/>
+        <Artists topArtists={topArtists}/>
      </div>
     </div>
   )
