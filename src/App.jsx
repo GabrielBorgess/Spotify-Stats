@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './index.css'
 
-const callbackUrl = 'http://localhost:5173/callback'
+const callbackUrl = 'https://spotifystatsbyborges.netlify.app/callback'
 
 function App() {
   const clientId = "b127e89b86d2450c99868c6ab0de314c";
