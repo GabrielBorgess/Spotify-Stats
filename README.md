@@ -1,6 +1,6 @@
 # Spotify Stats 
 
-Essa aplicação (react + vite) web permite que você tenha acesso as suas princicais stats do spotify.
+Essa aplicação web permite que você tenha acesso as suas princicais stats do spotify.
 
 Ainda estou trabalhando na aplicação durante o meu tempo livre e ao longo do tempo mais funções estarão disponíveis!
 
@@ -18,3 +18,30 @@ Ainda estou trabalhando na aplicação durante o meu tempo livre e ao longo do t
 🔜 Principais musicas ouvidas 
 
 🔜 Criação automatica de playlist com base nos artistas mais escutados
+
+
+## Rodando localmente
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/GabrielBorgess/Spotify-Stats
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd Spotify-Stats
+```
+
+Instale as dependências
+
+```bash
+  npm install
+```
+
+Inicie o servidor
+
+```bash
+  npm run dev
+```
