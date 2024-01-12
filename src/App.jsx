@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './index.css'
 
+const callbackUrl = 'https://spotifystatsbyborges.netlify.app/callback'
+
 function App() {
   const clientId = "b127e89b86d2450c99868c6ab0de314c";
   const params = new URLSearchParams(window.location.search);
@@ -36,7 +38,7 @@ function App() {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "https://spotifystatsbyborges.netlify.app/callback");
+    params.append("redirect_uri", callbackUrl);
     params.append("scope", "user-read-private user-read-email user-top-read");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -70,7 +72,7 @@ function App() {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "https://spotifystatsbyborges.netlify.app/callback");
+    params.append("redirect_uri", callbackUrl);
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -101,12 +103,12 @@ function App() {
 
   return (
     <div className='bg-gradient-to-b from-green-950 via-gray-900 to-gray-950 min-h-screen flex justify-center text-center flex-col'>
-     <div className=''>
+     <div className='z-10'>
         <h1 className='font-bold text-7xl text-white pt-10 pb-5'>Spotify Stats</h1>
         {topArtists.length === 0 && (
           <>
-          <p className='text-white'>Simply authenticate with Spotify, and your top artists will be displayed instantly.</p>
-          <button onClick={fetchData} className='m-8 p-4 font-semibold text-zinc-900 border-2 w-1/5 rounded-lg bg-slate-100'>Get my Spotify Stats</button>
+          <p className='text-white ml-5 mr-5'>Simply authenticate with Spotify, and your top artists will be displayed instantly.</p>
+          <button onClick={fetchData} className='m-8 p-4 font-semibold text-zinc-900 border-2 max-w-4xl rounded-lg bg-slate-100'>Get my Spotify Stats</button>
           </>
         )}
         {topArtists.length !== 0 && (
